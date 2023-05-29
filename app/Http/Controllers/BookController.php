@@ -14,7 +14,7 @@ class BookController extends Controller
      */
     public function index()
     {
-        $books = Book::latest()->paginate(5);
+        $books = Book::sortable()->paginate(5);
 
         return view('books.index', compact('books'))->with(request()-> input('page'));
     }
@@ -58,7 +58,7 @@ class BookController extends Controller
      */
     public function show(Book $book)
     {
-        //
+        return view('books.show', compact('book'));
     }
 
     /**
