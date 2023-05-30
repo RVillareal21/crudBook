@@ -69,7 +69,7 @@ class BookController extends Controller
      */
     public function edit(Book $book)
     {
-        //
+        return view('books.edit', compact('book'));
     }
 
     /**
@@ -81,7 +81,17 @@ class BookController extends Controller
      */
     public function update(Request $request, Book $book)
     {
-        //
+        //validate input
+        $request->validate([
+            'name' => 'required',
+            'author' => 'required'
+        ]);
+
+        //edit book
+        $book->update($request->all());
+
+        //redirect the user and send message
+        return redirect()->route('books.index')->with('success', 'Book Edited Successfully.');
     }
 
     /**
