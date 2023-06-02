@@ -21,7 +21,7 @@
             </div>
         @endif
     
-
+        
     
         <table class="table table-bordered">
             <tr>
@@ -29,6 +29,7 @@
                 <th>@sortablelink('name')</th>
                 <th>@sortablelink('author')</th>
                 <th width="280px">Action</th>
+                <th>@sortablelink('borrowed_by')</th>
             </tr>
     
             @if ($books->count() == 0)
@@ -44,20 +45,21 @@
                 <td>{{ $book->author }}</td>
                 <td>
                     <form action="{{ route('books.destroy',$book->id) }}" method="POST">
-                        <a class="btn btn-info" href="{{ route('books.show',$book->id) }}">Show</a>
-                        <a class="btn btn-primary" href="{{ route('books.edit',$book->id) }}">Edit</a>
                         @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger">Delete</button>
+                        @method('UPDATE')
+                        <button type="submit" class="btn btn-primary">Borrow</button>
                     </form>
                 </td>
+                @foreach($users as $key => $user)
+                <td>{{ $user->username }}</td>
+                @endforeach
             </tr>
             @endforeach
     
         </table>
         {{ $books->links() }}
         <p>
-            Displaying {{$books->count()}} of {{ $books->total() }} book(s).
+            Displaying {{$book->count()}} of {{ $books->total() }} book(s).
         </p>
     </div>
 

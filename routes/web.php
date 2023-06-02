@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\UserController;
 use App\Models\Book;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,8 +21,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('books', BookController::class);
+Route::resource('books', BookController::class)->middleware('auth');
+Route::resource('user', UserController::class)->middleware('auth');
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [App\Http\Controllers\UserController::class, 'index'])->name('user.borrow');
