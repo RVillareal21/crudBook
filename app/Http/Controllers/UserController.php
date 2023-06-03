@@ -3,16 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use App\Models\User;
 use App\Models\Users;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         $books = Book::sortable()->paginate(5);
@@ -21,85 +19,24 @@ class UserController extends Controller
         return view('user.borrow', compact('books', 'users'))->with(request()-> input('page'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        // return view('users.create');
-    }
+    public function update(Request $request, Book $book, $id)
+    {    
+        $books = Book::find($id);
+        $books->update($request->all());
+        
+        if ($books->is_borrowed == 0){
+            $books->update([
+                'is_borrowed'=> 1,
+                'user_id' => Auth::user()->id,
+            ]);
+            return redirect()->route('user.borrow')->with('success', 'Book Borrowed Successfully.');
+        } elseif ($books->is_borrowed == 1){
+            $books->update([
+                'is_borrowed'=> 0,
+                'user_id' => 1,
+            ]);
+            return redirect()->route('user.borrow')->with('success', 'Book Unborrowed Successfully.');
+        }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        // $request->validate([
-        //     'name' => 'required',
-        //     'author' => 'required'
-        // ]);
-
-        // Book::create($request->all());
-
-        // return redirect()->route('users.index')->with('success', 'Book Added Successfully.');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Book  $book
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Book $book)
-    {
-        // return view('users.show', compact('book'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Book  $book
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Book $book)
-    {
-        // return view('users.edit', compact('book'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Book  $book
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Book $book)
-    {
-        // $request->validate([
-        //     'name' => 'required',
-        //     'author' => 'required'
-        // ]);
-
-        // $book->update($request->all());
-
-        // return redirect()->route('users.index')->with('success', 'Book Edited Successfully.');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Book  $book
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Book $book)
-    {
-        // $user->delete();
-
-        // return redirect()->route('users.index')->with('success', 'Book Deleted Successfully.');
     }
 }

@@ -7,7 +7,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="pull-left">
-                    <h2>Book Application</h2>
+                    <h2>Welcome to CrudBook!</h2>
                 </div>
                 <div class="pull-right">
                     <a class="btn btn-success" href="{{ route('books.create') }}"> Add New Book</a>

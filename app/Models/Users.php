@@ -16,4 +16,8 @@ class Users extends Model
     ];
 
     public $sortable = ['id', 'name', 'author', 'created_at', 'updated_at'];
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }

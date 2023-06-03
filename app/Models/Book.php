@@ -12,9 +12,12 @@ class Book extends Model
 
     protected $fillable = [
         'name',
-        'author'
+        'author',
+        'user_id',
+        'is_borrowed'
     ];
 
     public $sortable = ['id', 'name', 'author', 'created_at', 'updated_at'];
+
 
 }
