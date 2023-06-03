@@ -43,6 +43,5 @@ class UserController extends Controller
             ]);
             return redirect()->route('user.borrow')->with('success', 'Book Unborrowed Successfully.');
         }
-
     }
 }
