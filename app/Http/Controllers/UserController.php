@@ -13,8 +13,8 @@ class UserController extends Controller
 
     public function index()
     {
-        $books = Book::sortable()->paginate(5);
-        $users = Users::sortable()->paginate(5);
+        $books = Book::sortable()->paginate(5)->withQueryString();
+        $users = Users::sortable()->paginate(5)->withQueryString()->items();
 
         return view('user.borrow', compact('books', 'users'))->with(request()-> input('page'));
     }

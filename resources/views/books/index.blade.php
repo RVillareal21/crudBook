@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 @section('content')
     <div class="container">

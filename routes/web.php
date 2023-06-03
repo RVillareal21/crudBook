@@ -21,7 +21,8 @@ Route::get('/', function () {
     return view('home');
 });
 
-Route::resource('books', BookController::class)->middleware('auth');
+
+Route::resource('books', BookController::class)->middleware(['isAdmin', 'auth']);
 Route::resource('user', UserController::class)->middleware('auth');
 
 Auth::routes();

@@ -30,12 +30,12 @@ class BookController extends Controller
             'author' => 'required'
         ]);
 
-        //create new book
 
         if ($validator->fails()) {
             return redirect('create')->withErrors($validator)->withInput();
         }
 
+        //create new book
         Book::create([
             'user_id' => 1,
             'name' => $request->input('name'),
