@@ -1,13 +1,14 @@
 @extends('layouts.app')
 
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 @section('content')
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
                 <div class="pull-left">
-                    <h2>Book Application</h2>
+                    <h2>Welcome to CrudBook!</h2>
                 </div>
                 <div class="pull-right">
                     <a class="btn btn-success" href="{{ route('books.create') }}"> Add New Book</a>
@@ -21,7 +22,7 @@
             </div>
         @endif
     
-        
+
     
         <table class="table table-bordered">
             <tr>

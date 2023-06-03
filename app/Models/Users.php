@@ -6,18 +6,18 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Kyslik\ColumnSortable\Sortable;
 
-class Book extends Model
+class Users extends Model
 {
     use HasFactory, Sortable;
 
     protected $fillable = [
         'name',
-        'author',
-        'user_id',
-        'is_borrowed'
+        'author'
     ];
 
     public $sortable = ['id', 'name', 'author', 'created_at', 'updated_at'];
 
-
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }
