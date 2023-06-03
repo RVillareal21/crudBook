@@ -1,6 +1,5 @@
 @extends('layouts.app')
 
-{{-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> --}}
 <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js" integrity="sha512-F636MAkMAhtTplahL9F6KmTfxTmYcAcjcCkyu0f0voT3N/6vzAuJ4Num55a0gEJ+hRLHhdz3vDvZpf6kqgEa5w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-toggle/2.2.2/css/bootstrap-toggle.css" integrity="sha512-9tISBnhZjiw7MV4a1gbemtB9tmPcoJ7ahj8QWIc0daBCdvlKjEA48oLlo6zALYm3037tPYYulT0YQyJIJJoyMQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -12,6 +11,11 @@
             <div class="col-lg-12">
                 <div class="pull-left">
                     <h2>Welcome to CrudBook!</h2>
+                </div>
+                <div class="pull-right">
+                    @if (Auth::check() && Auth::user()->user_role == 1)
+                        <a class="btn btn-success" href="{{ route('books.index') }}"> Go to Admin Page </a>
+                    @endif
                 </div>
             </div>
         </div>

@@ -17,13 +17,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+Route::get('/login', function () {
     return view('home');
 });
 
+Route::get('logout', [App\Http\Controllers\Auth\LoginController::class, 'logout']);
+
 
 Route::resource('books', BookController::class)->middleware(['isAdmin', 'auth']);
-Route::resource('user', UserController::class)->middleware('auth');
+Route::resource('user', UserController::class)->middleware(['auth']);
 
 Auth::routes();
 
