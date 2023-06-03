@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Users;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
 {
@@ -14,9 +15,14 @@ class UserController extends Controller
     public function index()
     {
         $books = Book::sortable()->paginate(5)->withQueryString();
-        $users = Users::sortable()->paginate(5)->withQueryString()->items();
+        $borrowedBookIds = Book::where('is_borrowed', 1)->pluck('id')->toArray();
+        $users = User::whereIn('id', function ($query) use ($borrowedBookIds) {
+            $query->select('user_id')
+                ->from('books')
+                ->whereIn('id', $borrowedBookIds);
+        })->get();
 
-        return view('user.borrow', compact('books', 'users'))->with(request()-> input('page'));
+        return view('user.borrow', compact('books', 'users'))->with(request()->input('page'));
     }
 
     public function update(Request $request, Book $book, $id)
